@@ -9,12 +9,19 @@ function App() {
   const [inputText, setInputText] = useState("");
   const [url, setUrl] = useState("");
   const [copyClicked, setCopyClicked] = useState(false);
+  const [generateClicked, setGenerateClicked] = useState(false);
+  const [showClipboard, setShowClipboard] = useState(false);
+
   useEffect(() => {
     if (copyClicked) {
       setTimeout(() => setCopyClicked(false), 2000);
     }
-  }, [copyClicked])
+    if (generateClicked) {
+      setTimeout(() => setShowClipboard(true) || setGenerateClicked(false), 2000);
+    }
+  }, [copyClicked, generateClicked])
   const handleGenerate = () => {
+    setGenerateClicked(true);
     setUrl(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${inputText}`);
   };
   const handleCopyClick = async () => {
@@ -52,12 +59,16 @@ function App() {
                   effect="blur"
                 />
               </center>
-              <Button
-                className="bg-slate-500 text-black"
-                onClick={handleCopyClick}
-              >
-                {!copyClicked ? 'Copy Image📋' : 'Image copied✅'}
-              </Button>
+              {
+                showClipboard && (
+                  <Button
+                    className="bg-slate-500 text-black"
+                    onClick={handleCopyClick}
+                  >
+                    {!copyClicked ? 'Copy Image📋' : 'Image copied✅'}
+                  </Button>
+                )
+              }
             </div>
           )
         }
