@@ -5,6 +5,7 @@ import App from './App.jsx'
 import React from "react";
 
 import { BackgroundBeamsWithCollision } from "./components/ui/background-beams-with-collision";
+import { NavBar } from './NavBar';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')).render(
             </div>
           </div>
         </h2>
+        <NavBar />
         <App />
       </div>
     </BackgroundBeamsWithCollision>
