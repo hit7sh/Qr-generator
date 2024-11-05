@@ -1,57 +1,67 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Button } from './components/ui/button'
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "./components/ui/card"
 import { Input } from './components/ui/input'
 
 function App() {
   const [inputText, setInputText] = useState("");
   const [url, setUrl] = useState("");
+  const [copyClicked, setCopyClicked] = useState(false);
+  useEffect(() => {
+    if (copyClicked) {
+      setTimeout(() => setCopyClicked(false), 2000);
+    }
+  }, [copyClicked])
   const handleGenerate = () => {
     setUrl(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${inputText}`);
   };
+  const handleCopyClick = async () => {
+    try {
+      const blob = await fetch(url).then(r => r.blob());
+      navigator.clipboard.write?.([
+        new ClipboardItem({
+          'image/png': blob,
+        })
+      ])
+    } catch (error) { }
+    setCopyClicked(true);
+  }
+
   return (
     <>
-      <div>
-        <div className="grid w-full gap-2">
+      <center>
+        <div className="flex w-full max-w-sm items-center space-x-2">
           <Input
+            className="text-black"
             placeholder="Type your message/link here."
             onChange={(event) => setInputText(event.target.value)}
             onKeyDown={(event) => event.key === 'Enter' && handleGenerate()}
           />
-          <Button className="bg-slate-500" onClick={handleGenerate}>Generate Qr</Button>
-
+          <Button className="bg-slate-500 text-black" onClick={handleGenerate}>Generate Qr</Button>
         </div>
 
         {
           !!url?.length && !!inputText?.length && (
-            <Card>
-              <CardHeader>
-                <CardTitle>
-                  Your Qr Code:
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <center>
-                  <LazyLoadImage
-                    src={url}
-                    PlaceholderSrc="./images/blurimage.jpg"
-                    effect="blur"
-                  />
-                </center>
-
-              </CardContent>
-            </Card>
+            <div className="mt-6">
+              <center>
+                <LazyLoadImage
+                  src={url}
+                  PlaceholderSrc="./images/blurimage.jpg"
+                  effect="blur"
+                />
+              </center>
+              <Button
+                className="bg-slate-500 text-black"
+                onClick={handleCopyClick}
+              >
+                {!copyClicked ? 'Copy Image📋' : 'Image copied✅'}
+              </Button>
+            </div>
           )
         }
-      </div>
+      </center>
     </>
   )
 }
