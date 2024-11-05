@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import './App.css'
-import { Textarea } from "./components/ui/textarea"
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Button } from './components/ui/button'
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "./components/ui/card"
-import Spinner from './components/ui/spinner'
+import { Input } from './components/ui/input'
 
 function App() {
   const [inputText, setInputText] = useState("");
@@ -22,7 +21,7 @@ function App() {
     <>
       <div>
         <div className="grid w-full gap-2">
-          <Textarea
+          <Input
             placeholder="Type your message/link here."
             onChange={(event) => setInputText(event.target.value)}
             onKeyDown={(event) => event.key === 'Enter' && handleGenerate()}
@@ -41,9 +40,11 @@ function App() {
               </CardHeader>
               <CardContent>
                 <center>
-                  <a href={url} >
-                    <img src={url} alt={"Loading..."} />
-                  </a>
+                  <LazyLoadImage
+                    src={url}
+                    PlaceholderSrc="./images/blurimage.jpg"
+                    effect="blur"
+                  />
                 </center>
 
               </CardContent>
