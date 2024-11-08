@@ -20,9 +20,10 @@ function Navbar({
             <Menu setActive={setActive}>
                 <MenuItem setActive={setActive} active={active} item="Contact Me">
                     <div className="flex flex-col space-y-4 text-sm">
-                        <HoveredLink href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSDZqhXrQXfVzFwtRvZrXWFKHpnhSrGCcPqkdWjtTszzZQtpVrLdwzfBHBvcccHlRjtPnmhV">G-Mail</HoveredLink>
-                        <HoveredLink href="https://wa.me/7725977528">whatsapp</HoveredLink>
+                        <HoveredLink href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSDZqhXrQXfVzFwtRvZrXWFKHpnhSrGCcPqkdWjtTszzZQtpVrLdwzfBHBvcccHlRjtPnmhV">G-Mail📩</HoveredLink>
+                        <HoveredLink href="https://wa.me/7725977528">WhatsApp📲</HoveredLink>
                         <HoveredLink href="https://www.linkedin.com/in/hitesh-saini-80499a1b3/">LinkedIn</HoveredLink>
+                        <HoveredLink href="https://x.com/hit7sh">Twitter</HoveredLink>
                     </div>
                 </MenuItem>
             </Menu>
