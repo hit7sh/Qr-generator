@@ -4,6 +4,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Button } from './components/ui/button'
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Input } from './components/ui/input'
+import { SiWhatsapp } from "react-icons/si";
 
 function App() {
   const [inputText, setInputText] = useState("");
@@ -61,12 +62,26 @@ function App() {
               </center>
               {
                 showClipboard && (
-                  <Button
-                    className="bg-slate-500 text-black"
-                    onClick={handleCopyClick}
-                  >
-                    {!copyClicked ? 'Copy Image📋' : 'Image copied✅'}
-                  </Button>
+                  <>
+                    <Button
+                      className="bg-slate-500 text-black mr-2"
+                      onClick={handleCopyClick}
+                    >
+                      {!copyClicked ? 'Copy Image📋' : 'Image copied✅'}
+                    </Button>
+                    <Button
+                      className="bg-slate-500 text-black"
+                    >
+                      <a
+                        href={`https://wa.me/?text=${url}`}
+                        target="_blank"
+                      >
+                        <div className="flex">
+                          <span className="pr-1">Share via</span><SiWhatsapp />
+                        </div>
+                      </a>
+                    </Button>
+                  </>
                 )
               }
             </div>
