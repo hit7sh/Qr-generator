@@ -73,7 +73,7 @@ function App() {
                       className="bg-slate-500 text-black"
                     >
                       <a
-                        href={`https://wa.me/?text=${url}`}
+                        href={`https://wa.me/?text="${url}"`}
                         target="_blank"
                       >
                         <div className="flex">
